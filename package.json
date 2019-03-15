@@ -1,0 +1,28 @@
+{
+    "name": "youtube-music-desktop",
+    "version": "1.0.0",
+    "description": "A lightweight Desktop-App that shows the YouTube-Music Webpage and adds global Keybindings for i.e. media keys.",
+    "main": "src/main.js",
+    "scripts": {
+        "start": "electron .",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/thommy-c/youtube-music-desktop.git"
+    },
+    "keywords": [
+        "youtube",
+        "music",
+        "youtubemusic",
+        "youtube-music",
+        "electron",
+        "desktop"
+    ],
+    "author": "Thommy Cambier <tmc@thommysweb.com>",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/thommy-c/youtube-music-desktop/issues"
+    },
+    "homepage": "https://github.com/thommy-c/youtube-music-desktop#readme"
+}
