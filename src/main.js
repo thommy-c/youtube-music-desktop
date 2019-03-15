@@ -50,8 +50,8 @@ function createWindow() {
 /**
  * Register a Keyboard Shortcut to simulate a click on an HTML-Element.
  * The Binding is global, it'll work when the App is minimized.
- * @param {String} key The Keyboard Shortcut to use. 
- * @param {String} buttonid Reference to an HTML-Element. 
+ * @param {string} key The Keyboard Shortcut to use. 
+ * @param {string} buttonid Reference to an HTML-Element. 
  * @example 
  * registerKey('ctrl+e', '#idOfButtonToClick');
  * registerKey('ctrl+i', '.classOfButtonToClick');
