@@ -38,11 +38,44 @@ function createWindow() {
         show: false,
         darkTheme: true,
     });
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
     mainWindow.setMenu(null);
     mainWindow.loadURL('https://music.youtube.com/library');
     mainWindow.webContents.on('did-finish-load', () => {
         mainWindow.maximize();
     });
     mainWindow.on('closed', () => { win = null });
+}
+
+/**
+ * Register a Keyboard Shortcut to simulate a click on an HTML-Element.
+ * The Binding is global, it'll work when the App is minimized.
+ * @param {String} key The Keyboard Shortcut to use. 
+ * @param {String} buttonid Reference to an HTML-Element. 
+ * @example 
+ * registerKey('ctrl+e', '#idOfButtonToClick');
+ * registerKey('ctrl+i', '.classOfButtonToClick');
+ */
+function registerKey(key, buttonid) {
+    let keybind;
+    let code;
+    keybind = etn.globalShortcut.register(key, () => {
+        code = 'document.querySelector(\'' + buttonid + '\').click()';
+        mainWindow.webContents.executeJavaScript(code);
+    });
+    if (!keybind) {
+        console.log('[ERROR]: Registration of ' + key + ' failed!');
+        etn.dialog.showMessageBox(mainWindow,
+            {
+                type: 'warning',
+                buttons: ['OK'],
+                defaultId: 0,
+                title: 'Can\'t Bind Shortcuts',
+                message: 'Key Registration Failed.',
+                detail: 'For some reason...'
+            }, (res, checked) => {
+                etn.app.quit();
+            }
+        );
+    }
 }
