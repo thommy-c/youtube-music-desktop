@@ -15,6 +15,9 @@ const etn = require('electron');
 
 let mainWindow;
 
+// True if YouTube-Music, not "just" YouTube. Will later be set by the user.
+let ytmusic = true;
+
 buttons = {
     "musicbtns": {
         "play": "#play-pause-button",
@@ -55,20 +58,29 @@ function createWindow() {
     });
     mainWindow.webContents.openDevTools();
     mainWindow.setMenu(null);
-    mainWindow.loadURL('https://music.youtube.com/library');
+    let URL = ytmusic ? 'https://music.youtube.com/library' : 'https://youtube.com'
+    mainWindow.loadURL(URL);
     mainWindow.webContents.on('did-finish-load', () => {
         mainWindow.maximize();
     });
     mainWindow.on('closed', () => { win = null });
 
+    let btns = ytmusic ? buttons.musicbtns : buttons.ytbtns;
+
     /* PLAY/PAUSE */
-    registerKey('MediaPlayPause', buttons.play);
+    registerKey('MediaPlayPause', btns.play);
 
     /* NEXT TRACK */
-    registerKey('MediaNextTrack', buttons.next);
+    registerKey('MediaNextTrack', btns.next);
 
     /* PREVIOUS TRACK */
-    registerKey('MediaPreviousTrack', buttons.prev);
+    registerKey('MediaPreviousTrack', btns.prev);
+
+    /* YT-Music only */
+    if (ytmusic) {
+        /* Toggle Player Page */
+        registerKey('Ctrl+y', btns.togglePlayer);
+    }
 }
 
 /**
