@@ -15,6 +15,21 @@ const etn = require('electron');
 
 let mainWindow;
 
+buttons = {
+    "musicbtns": {
+        "play": "#play-pause-button",
+        "next": ".next-button",
+        "prev": ".previous-button",
+        "togglePlayer": ".toggle-player-page-button",
+        "search": "ytmusic-search-box"
+    },
+    "ytbtns": {
+        "play": ".ytp-play-button",
+        "next": ".ytp-next-button",
+        "prev": ".ytp-prev-button"
+    }
+}
+
 etn.app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         etn.app.quit();
@@ -45,6 +60,15 @@ function createWindow() {
         mainWindow.maximize();
     });
     mainWindow.on('closed', () => { win = null });
+
+    /* PLAY/PAUSE */
+    registerKey('MediaPlayPause', buttons.play);
+
+    /* NEXT TRACK */
+    registerKey('MediaNextTrack', buttons.next);
+
+    /* PREVIOUS TRACK */
+    registerKey('MediaPreviousTrack', buttons.prev);
 }
 
 /**
