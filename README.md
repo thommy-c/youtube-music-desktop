@@ -7,4 +7,4 @@ Usable Keybindings:
     MediaPlayPause     = Play or Pause a Video
     MediaNextTrack     = Next Video
     MediaPreviousTrack = Previous Video
-    Ctrl+Y             = Toggle Player
+    Ctrl+T             = Toggle Player
