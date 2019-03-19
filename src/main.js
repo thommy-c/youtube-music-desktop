@@ -73,7 +73,7 @@ function createWindow() {
             loadYTMusic();
         }
         ytmusic = !ytmusic;
-    })
+    });
 }
 
 /**
@@ -157,5 +157,5 @@ function loadYTMusic() {
     /* PREVIOUS TRACK */
     registerKey('MediaPreviousTrack', buttons.musicbtns.prev);
     /* Toggle Player Page */
-    registerKey('Ctrl+y', buttons.musicbtns.togglePlayer);
+    registerKey('Ctrl+t', buttons.musicbtns.togglePlayer);
 }
