@@ -18,6 +18,8 @@ let mainWindow;
 // True if YouTube-Music, not "just" YouTube. Will later be set by the user.
 let ytmusic = true;
 
+let finishedLoading = false;
+
 buttons = {
     "musicbtns": {
         "play": "#play-pause-button",
@@ -56,18 +58,16 @@ function createWindow() {
         show: false,
         darkTheme: true,
     });
-    mainWindow.webContents.openDevTools();
     mainWindow.setMenu(null);
     let URL = ytmusic ? 'https://music.youtube.com/library' : 'https://youtube.com'
     mainWindow.loadURL(URL);
-    mainWindow.webContents.on('did-finish-load', () => {
-        mainWindow.maximize();
-    });
-    mainWindow.on('closed', () => { win = null });
+    mainWindow.webContents.on('did-finish-load', () => finishedLoading = true);
+    mainWindow.on('closed', () => win = null);
+    
     let btns = ytmusic ? buttons.musicbtns : buttons.ytbtns;
     
     /* PLAY/PAUSE */
-    registerKey('MediaPlayPause', btns.play);
+    isKeyBound(registerKey('MediaPlayPause', btns.play));
 
     /* NEXT TRACK */
     registerKey('MediaNextTrack', btns.next);
@@ -91,24 +91,49 @@ function createWindow() {
  * registerKey('ctrl+e', '#idOfButtonToClick');
  * registerKey('ctrl+i', '.classOfButtonToClick');
  */
-function registerKey(key, buttonid, callback) {
-    const keybind = etn.globalShortcut.register(key, () => {
+function registerKey(key, buttonid) {
+    return etn.globalShortcut.register(key, () => {
         mainWindow.webContents.executeJavaScript('document.querySelector(\'' + buttonid + '\').click()');
     });
+}
 
+/**
+ * Sets the did-finish-load handler to maximize (and show) 
+ * the window if the given key is bound.
+ * If the binding failed, it shows an error-message,
+ * asking the user if they want to continue without media keys.
+ * @param {boolean} keybind The return value of electron.globalShortcut.register
+ * @example
+ * isKeyBound(registerKey('MediaPlayPause', btns.play));
+ * @todo Save users decision whether they want to quit or not if the media keys don't work.
+ */
+function isKeyBound(keybind) {
     if (!keybind) {
-        console.log('[ERROR]: Registration of ' + key + ' failed!');
-        etn.dialog.showMessageBox(mainWindow,
-            {
+        console.log('[ERROR]: Registration of Media Keys failed!');
+        etn.dialog.showMessageBox(mainWindow, {
                 type: 'warning',
-                buttons: ['OK'],
+                buttons: ['Go ahead', 'Quit'],
                 defaultId: 0,
-                title: 'Can\'t Bind Shortcuts',
-                message: 'Key Registration Failed.',
-                detail: 'For some reason...'
+                title: 'Key Registration Failed',
+                message: 'Can\'t Bind Media Keys',
+                detail: 'This is because another program has already reserved them. \nA Media Player or Chrome for example. \nYou can still use the App, other Keybindings will work.'
             }, (res, checked) => {
-                etn.app.quit();
+                if (res === 1) {
+                    etn.app.quit();
+                } else {
+                    if (finishedLoading) {
+                        mainWindow.maximize();
+                    } else {
+                        mainWindow.webContents.on('did-finish-load', () => {
+                            mainWindow.maximize();
+                        });
+                    }
+                }
             }
         );
+    } else {
+        mainWindow.webContents.on('did-finish-load', () => {
+            mainWindow.maximize();
+        });
     }
 }
