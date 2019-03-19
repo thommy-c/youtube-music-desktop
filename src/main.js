@@ -11,14 +11,10 @@ Copyright(C) 2019  Thommy Cambier <tmc@thommysweb.com>
     GNU General Public License for more details: <https://www.gnu.org/licenses/>.
 *********************************************************************************/
 
-// Icon
-// Dynamic registerKey
-
 const etn = require('electron');
 
 let mainWindow;
 
-// True if YouTube-Music, not "just" YouTube. Will later be set by the user.
 let ytmusic = true;
 
 let finishedLoading = false;
@@ -63,27 +59,21 @@ function createWindow() {
         darkTheme: true,
     });
     mainWindow.setMenu(null);
-    let URL = ytmusic ? 'https://music.youtube.com/library' : 'https://youtube.com'
-    mainWindow.loadURL(URL);
     mainWindow.webContents.on('did-finish-load', () => finishedLoading = true);
     mainWindow.on('closed', () => win = null);
-    
-    let btns = ytmusic ? buttons.musicbtns : buttons.ytbtns;
-    
-    /* PLAY/PAUSE */
-    isKeyBound(registerKey('MediaPlayPause', btns.play));
-
-    /* NEXT TRACK */
-    registerKey('MediaNextTrack', btns.next);
-    
-    /* PREVIOUS TRACK */
-    registerKey('MediaPreviousTrack', btns.prev);
-    
-    /* YT-Music only */
     if (ytmusic) {
-        /* Toggle Player Page */
-        registerKey('Ctrl+y', btns.togglePlayer);
+        loadYTMusic();
+    } else {
+        loadYT();
     }
+    registerKey('Ctrl+M', '', () => {
+        if (ytmusic) {
+            loadYT();
+        } else {
+            loadYTMusic();
+        }
+        ytmusic = !ytmusic;
+    })
 }
 
 /**
@@ -146,4 +136,26 @@ function isKeyBound(keybind) {
             mainWindow.maximize();
         });
     }
+}
+
+function loadYT() {
+    mainWindow.loadURL('https://youtube.com');
+    /* PLAY/PAUSE */
+    isKeyBound(registerKey('MediaPlayPause', buttons.ytbtns.play));
+    /* NEXT TRACK */
+    registerKey('MediaNextTrack', buttons.ytbtns.next);
+    /* PREVIOUS TRACK */
+    registerKey('MediaPreviousTrack', buttons.ytbtns.prev);
+}
+
+function loadYTMusic() {
+    mainWindow.loadURL('https://music.youtube.com/library');
+    /* PLAY/PAUSE */
+    isKeyBound(registerKey('MediaPlayPause', buttons.musicbtns.play));
+    /* NEXT TRACK */
+    registerKey('MediaNextTrack', buttons.musicbtns.next);
+    /* PREVIOUS TRACK */
+    registerKey('MediaPreviousTrack', buttons.musicbtns.prev);
+    /* Toggle Player Page */
+    registerKey('Ctrl+y', buttons.musicbtns.togglePlayer);
 }
