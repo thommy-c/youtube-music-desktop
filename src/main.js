@@ -83,18 +83,24 @@ function createWindow() {
 }
 
 /**
- * Register a Keyboard Shortcut to simulate a click on an HTML-Element.
+ * Map a Keyboard Shortcut to a function. 
+ * Default is to simulate a click on an HTML-Element.
  * The Binding is global, it'll work when the App is minimized.
- * @param {string} key The Keyboard Shortcut to use. 
- * @param {string} buttonid Reference to an HTML-Element. 
+ * @param {string} key - The Keyboard Shortcut to use (Electron-Accelerator). 
+ * @param {string} buttonid - Reference to an HTML-Element. If callback is omitted, this Element will be clicked.
+ * @param {function} [callback] - The function to execute when this Keyboard Shortcut is pressed. 
  * @example 
  * registerKey('ctrl+e', '#idOfButtonToClick');
  * registerKey('ctrl+i', '.classOfButtonToClick');
+ * registerKey('ctrl+m', '', () => console.log('CTRL + M'));
  */
-function registerKey(key, buttonid) {
-    return etn.globalShortcut.register(key, () => {
-        mainWindow.webContents.executeJavaScript('document.querySelector(\'' + buttonid + '\').click()');
-    });
+function registerKey(key, buttonid, callback) {
+    if (!callback && buttonid) {
+        return etn.globalShortcut.register(key, () => {
+            mainWindow.webContents.executeJavaScript('document.querySelector(\'' + buttonid + '\').click()');
+        });
+    }
+    return etn.globalShortcut.register(key, () => callback());
 }
 
 /**
@@ -102,7 +108,7 @@ function registerKey(key, buttonid) {
  * the window if the given key is bound.
  * If the binding failed, it shows an error-message,
  * asking the user if they want to continue without media keys.
- * @param {boolean} keybind The return value of electron.globalShortcut.register
+ * @param {boolean} keybind - The return value of electron.globalShortcut.register
  * @example
  * isKeyBound(registerKey('MediaPlayPause', btns.play));
  * @todo Save users decision whether they want to quit or not if the media keys don't work.
