@@ -64,18 +64,17 @@ function createWindow() {
         mainWindow.maximize();
     });
     mainWindow.on('closed', () => { win = null });
-
     let btns = ytmusic ? buttons.musicbtns : buttons.ytbtns;
-
+    
     /* PLAY/PAUSE */
     registerKey('MediaPlayPause', btns.play);
 
     /* NEXT TRACK */
     registerKey('MediaNextTrack', btns.next);
-
+    
     /* PREVIOUS TRACK */
     registerKey('MediaPreviousTrack', btns.prev);
-
+    
     /* YT-Music only */
     if (ytmusic) {
         /* Toggle Player Page */
@@ -92,13 +91,11 @@ function createWindow() {
  * registerKey('ctrl+e', '#idOfButtonToClick');
  * registerKey('ctrl+i', '.classOfButtonToClick');
  */
-function registerKey(key, buttonid) {
-    let keybind;
-    let code;
-    keybind = etn.globalShortcut.register(key, () => {
-        code = 'document.querySelector(\'' + buttonid + '\').click()';
-        mainWindow.webContents.executeJavaScript(code);
+function registerKey(key, buttonid, callback) {
+    const keybind = etn.globalShortcut.register(key, () => {
+        mainWindow.webContents.executeJavaScript('document.querySelector(\'' + buttonid + '\').click()');
     });
+
     if (!keybind) {
         console.log('[ERROR]: Registration of ' + key + ' failed!');
         etn.dialog.showMessageBox(mainWindow,
