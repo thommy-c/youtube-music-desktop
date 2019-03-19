@@ -11,6 +11,9 @@ Copyright(C) 2019  Thommy Cambier <tmc@thommysweb.com>
     GNU General Public License for more details: <https://www.gnu.org/licenses/>.
 *********************************************************************************/
 
+// Icon
+// Dynamic registerKey
+
 const etn = require('electron');
 
 let mainWindow;
@@ -55,6 +58,7 @@ function createWindow() {
         width: 900,
         height: 600,
         title: "YouTube Music",
+        icon: './assets/ytpng.png',
         show: false,
         darkTheme: true,
     });
