@@ -5,10 +5,10 @@ Warning: It doesn't always bind the media keys. This is because another program 
 
 Usable Keybindings:
 
-    CTRL+R             = Reload
     MediaPlayPause     = Play or Pause a Video
     MediaNextTrack     = Next Video
     MediaPreviousTrack = Previous Video
     CTRL+T             = Toggle Player
     CTRL+M             = Switch between YouTube and YouTube Music
-    
+    CTRL+R             = Reload
+        
