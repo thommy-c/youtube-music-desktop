@@ -3,8 +3,10 @@ A lightweight Desktop-App that shows the YouTube-Music Webpage and adds global K
 
 Usable Keybindings:
 
-    Ctrl+R             = Reload
+    CTRL+R             = Reload
     MediaPlayPause     = Play or Pause a Video
     MediaNextTrack     = Next Video
     MediaPreviousTrack = Previous Video
-    Ctrl+T             = Toggle Player
+    CTRL+T             = Toggle Player
+    CTRL+M             = Switch between YouTube and YouTube Music
+    
