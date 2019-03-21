@@ -54,7 +54,7 @@ function createWindow() {
         width: 900,
         height: 600,
         title: "YouTube Music",
-        icon: './assets/ytpng.png',
+        icon: './assets/icon.png',
         show: false,
         darkTheme: true,
     });
