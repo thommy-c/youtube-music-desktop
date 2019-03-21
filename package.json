@@ -5,7 +5,8 @@
     "main": "src/main.js",
     "scripts": {
         "start": "electron .",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dist": "electron-builder"
     },
     "repository": {
         "type": "git",
@@ -24,5 +25,24 @@
     "bugs": {
         "url": "https://github.com/thommy-c/youtube-music-desktop/issues"
     },
-    "homepage": "https://github.com/thommy-c/youtube-music-desktop#readme"
+    "homepage": "https://github.com/thommy-c/youtube-music-desktop#readme",
+    "devDependencies": {
+        "electron-builder": "^20.39.0"
+    },
+    "build": {
+        "appId": "youtube-music-desktop",
+        "directories": {
+            "output": "dist"
+        },
+        "linux": {
+            "target": [
+                "AppImage",
+                "deb"
+            ]
+        },
+        "win": {
+            "target": "portable",
+            "icon": "src/assets/icon.png"
+        }
+    }
 }
