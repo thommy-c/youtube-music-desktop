@@ -58,6 +58,7 @@ function createWindow() {
         show: false,
         darkTheme: true,
     });
+    mainWindow.setMenuBarVisibility(false);
     mainWindow.setMenu(null);
     mainWindow.webContents.on('did-finish-load', () => finishedLoading = true);
     mainWindow.on('closed', () => win = null);
@@ -157,5 +158,5 @@ function loadYTMusic() {
     /* PREVIOUS TRACK */
     registerKey('MediaPreviousTrack', buttons.musicbtns.prev);
     /* Toggle Player Page */
-    registerKey('Ctrl+t', buttons.musicbtns.togglePlayer);
+    registerKey('Alt+1', buttons.musicbtns.togglePlayer);
 }

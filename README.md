@@ -6,12 +6,12 @@ Usable Keybindings:
     MediaPlayPause     = Play or Pause a Video
     MediaNextTrack     = Next Video
     MediaPreviousTrack = Previous Video
-    CTRL+T             = Toggle Player
+    ALT+1              = Toggle Player
     CTRL+M             = Switch between YouTube and YouTube Music
-    CTRL+R             = Reload
         
 
 
-*Warning: It doesn't always bind the media keys. This is because another program has already reserved them. 
-In my case, I can't use the media keys when e.g. Google Chrome is running before youtube-music-desktop. 
-One solution for this is to put youtube-music-desktop in autostart like I do.*
+*Warning: It doesn't always bind the media keys. This is because another program has already reserved them. <br>
+You can still use the app though, it'll warn you upon starting if the media key binding failed. <br>
+In my case, I can't use the media keys when e.g. Google Chrome is running before youtube-music-desktop. <br>
+One solution for this is to put youtube-music-desktop in autostart like I do. <br>*
