@@ -8,7 +8,10 @@ Usable Keybindings:
     MediaPreviousTrack = Previous Video
     ALT+1              = Toggle Player
     CTRL+M             = Switch between YouTube and YouTube Music
-        
+
+
+The App closes and minimizes to the System Tray. Click on the Tray Icon to open the App. <br>
+Right click -> 'Quit' to close the App for good. 
 
 
 *Warning: It doesn't always bind the media keys. This is because another program has already reserved them. <br>

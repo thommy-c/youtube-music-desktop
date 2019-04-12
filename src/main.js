@@ -11,7 +11,8 @@ Copyright(C) 2019  Thommy Cambier <tmc@thommysweb.com>
     GNU General Public License for more details: <https://www.gnu.org/licenses/>.
 *********************************************************************************/
 
-const etn = require('electron');
+const etn  = require('electron');
+const path = require('path');
 
 let mainWindow;
 
@@ -34,6 +35,20 @@ buttons = {
     }
 }
 
+const contextMenu = etn.Menu.buildFromTemplate([
+    {
+        label: 'Show App', click: () => {
+            mainWindow.show()
+        }
+    },
+    {
+        label: 'Quit', click: () => {
+            etn.app.isQuiting = true
+            etn.app.quit()
+        }
+    }
+]);
+
 etn.app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         etn.app.quit();
@@ -50,18 +65,41 @@ etn.app.on('activate', () => {
 etn.app.on('ready', createWindow);
 
 function createWindow() {
+    var iconPath = path.join(__dirname, 'assets/icon.png');
     mainWindow = new etn.BrowserWindow({
         width: 900,
         height: 600,
         title: "YouTube Music",
-        icon: './assets/icon.png',
+        icon: iconPath,
         show: false,
         darkTheme: true,
     });
     mainWindow.setMenuBarVisibility(false);
     mainWindow.setMenu(null);
     mainWindow.webContents.on('did-finish-load', () => finishedLoading = true);
-    mainWindow.on('closed', () => win = null);
+
+    // Application closes to tray. Right-click -> Quit to close.
+    const trayIcon = new etn.Tray(iconPath);
+    trayIcon.setContextMenu(contextMenu);
+    trayIcon.on('click', (event, bounds, position) => {
+        mainWindow.show();
+    });
+    mainWindow.on('close', (event) => {
+        if (!etn.app.isQuiting) {
+            event.preventDefault();
+            mainWindow.hide();
+        }
+        return false;
+    });
+    mainWindow.on('minimize', (event) => {
+        event.preventDefault();
+        mainWindow.hide();
+    });
+    mainWindow.on('show', () => {
+        trayIcon.setHighlightMode('always');
+    });
+
+
     if (ytmusic) {
         loadYTMusic();
     } else {
