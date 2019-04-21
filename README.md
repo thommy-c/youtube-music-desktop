@@ -10,7 +10,7 @@ Usable Keybindings:
     CTRL+M             = Switch between YouTube and YouTube Music
 
 
-The App closes and minimizes to the System Tray. Click on the Tray Icon to open the App. <br>
+The App closes to the System Tray. Click on the Tray Icon to open the App. <br>
 Right click -> 'Quit' to close the App for good. 
 
 

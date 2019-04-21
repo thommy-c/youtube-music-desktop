@@ -82,7 +82,7 @@ function createWindow() {
     const trayIcon = new etn.Tray(iconPath);
     trayIcon.setContextMenu(contextMenu);
     trayIcon.on('click', (event, bounds, position) => {
-        mainWindow.show();
+        mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
     });
     mainWindow.on('close', (event) => {
         if (!etn.app.isQuiting) {
@@ -90,10 +90,6 @@ function createWindow() {
             mainWindow.hide();
         }
         return false;
-    });
-    mainWindow.on('minimize', (event) => {
-        event.preventDefault();
-        mainWindow.hide();
     });
     mainWindow.on('show', () => {
         trayIcon.setHighlightMode('always');
