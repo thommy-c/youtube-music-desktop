@@ -1,6 +1,6 @@
 {
     "name": "youtube-music-desktop",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "A lightweight Desktop-App that shows the YouTube-Music Webpage and adds global Keybindings for i.e. media keys.",
     "main": "src/main.js",
     "scripts": {
