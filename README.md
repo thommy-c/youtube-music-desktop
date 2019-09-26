@@ -14,7 +14,4 @@ The App closes to the System Tray. Click on the Tray Icon to open the App. <br>
 Right click -> 'Quit' to close the App for good. 
 
 
-*Warning: It doesn't always bind the media keys. This is because another program has already reserved them. <br>
-You can still use the app though, it'll warn you upon starting if the media key binding failed. <br>
-In my case, I can't use the media keys when e.g. Google Chrome is running before youtube-music-desktop. <br>
-One solution for this is to put youtube-music-desktop in autostart like I do. <br>*
+¯\\\_(ツ)\_/¯ works on my machine. 
