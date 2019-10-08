@@ -6,8 +6,6 @@ Usable Keybindings:
     MediaPlayPause     = Play or Pause a Video
     MediaNextTrack     = Next Video
     MediaPreviousTrack = Previous Video
-    ALT+1              = Toggle Player
-    CTRL+M             = Switch between YouTube and YouTube Music
 
 
 The App closes to the System Tray. Click on the Tray Icon to open the App. <br>

@@ -95,20 +95,11 @@ function createWindow() {
         trayIcon.setHighlightMode('always');
     });
 
-
     if (ytmusic) {
         loadYTMusic();
     } else {
         loadYT();
     }
-    registerKey('Ctrl+M', '', () => {
-        if (ytmusic) {
-            loadYT();
-        } else {
-            loadYTMusic();
-        }
-        ytmusic = !ytmusic;
-    });
 }
 
 /**
@@ -191,6 +182,4 @@ function loadYTMusic() {
     registerKey('MediaNextTrack', buttons.musicbtns.next);
     /* PREVIOUS TRACK */
     registerKey('MediaPreviousTrack', buttons.musicbtns.prev);
-    /* Toggle Player Page */
-    registerKey('Alt+1', buttons.musicbtns.togglePlayer);
 }
